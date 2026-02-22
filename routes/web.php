@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ResumeController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,5 +48,25 @@ Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallbac
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [ResumeController::class, 'index'])->name('dashboard');
+
+    // Resume Generation Flow
+    Route::prefix('resume')->name('resume.')->group(function () {
+        Route::get('/create', [ResumeController::class, 'create'])->name('create');
+        Route::post('/store-info', [ResumeController::class, 'storeInfo'])->name('store-info');
+        Route::get('/select-context', [ResumeController::class, 'selectContext'])->name('select-context');
+        Route::post('/generate', [ResumeController::class, 'generate'])->name('generate');
+        Route::get('/{resume}/edit', [ResumeController::class, 'edit'])->name('edit');
+        Route::put('/{resume}', [ResumeController::class, 'update'])->name('update');
+        Route::get('/{resume}/export', [ResumeController::class, 'export'])->name('export');
+    });
+
+    // Admin Routes
+    Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+        Route::get('/users', [AdminController::class, 'users'])->name('users');
+        Route::get('/logs', [AdminController::class, 'logs'])->name('logs');
+        Route::get('/templates', [AdminController::class, 'templates'])->name('templates');
+        Route::delete('/users/{user}', [AdminController::class, 'deleteUser'])->name('users.delete');
+    });
 });

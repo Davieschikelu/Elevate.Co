@@ -67,11 +67,17 @@
     </nav>
 
     <div class="max-w-7xl mx-auto px-8 py-12">
-        <h1 class="text-3xl font-bold text-slate-800 mb-8">My Resumes</h1>
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-slate-800">My Resumes</h1>
+            @if(Auth::user()->isAdmin())
+                <a href="{{ route('admin.dashboard') }}"
+                    class="text-indigo-600 font-semibold hover:bg-indigo-50 px-4 py-2 rounded-lg transition">Admin Panel</a>
+            @endif
+        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Create New Resume Card -->
-            <div
+            <a href="{{ route('resume.create') }}"
                 class="bg-white border-2 border-dashed border-slate-300 rounded-xl p-8 flex flex-col items-center justify-center text-center hover:border-indigo-400 hover:bg-indigo-50/50 transition cursor-pointer group h-64">
                 <div
                     class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition">
@@ -81,8 +87,33 @@
                     </svg>
                 </div>
                 <h3 class="text-lg font-bold text-slate-700 group-hover:text-indigo-700">Create New Resume</h3>
-                <p class="text-slate-500 text-sm mt-2">Start from scratch or use a template</p>
-            </div>
+                <p class="text-slate-500 text-sm mt-2">Generate a resume using LLM</p>
+            </a>
+
+            <!-- Existing Resumes -->
+            @foreach($resumes as $resume)
+                <div
+                    class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-full uppercase">
+                                {{ $resume->context_type }}
+                            </span>
+                            <span class="text-slate-400 text-xs">{{ $resume->created_at->diffForHumans() }}</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 mb-2">{{ $resume->title }}</h4>
+                        <p class="text-slate-500 text-sm line-clamp-2 mb-4">
+                            {{ $resume->content['summary'] ?? 'No summary available.' }}</p>
+
+                        <div class="flex gap-3">
+                            <a href="{{ route('resume.edit', $resume->id) }}"
+                                class="flex-1 text-center py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-semibold hover:bg-slate-200 transition">Edit</a>
+                            <a href="{{ route('resume.export', $resume->id) }}"
+                                class="flex-1 text-center py-2 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 transition">PDF</a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 </body>

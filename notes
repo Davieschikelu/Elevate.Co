@@ -1,30 +1,45 @@
 3.3.1 Functional Requirements
-1.	The system shall allow users to register and log in securely.
-2.	The system shall maintain authenticated user sessions.
-3.	The system shall allow users to create new resumes.
-4.	The system shall allow users to save, edit, and delete resumes.
-5.	The system shall allow users to select a resume context type.
-6.	The system shall collect user information including personal details, education, work experience, skills, and achievements.
-7.	The system shall process user inputs through a contextual processing engine.
-8.	The system shall interface with a Large Language Model through an API for resume generation.
-9.	The system shall generate context-appropriate resume content.
-10.	The system shall display generated resumes in a formatted preview.
-11.	The system shall allow users to export resumes in PDF format.
-12.	The system shall store generated resumes for later access.
-13.	The system shall allow administrators to view all registered users.
-14.	The system shall allow administrators to manage user accounts.
-15.	The system shall store all data in a relational database.
-16.	The system shall validate all user input.
-17.	The system shall restrict access to authorized users only.
+
+1. The system shall allow users to register and log in securely.
+2. The system shall maintain authenticated user sessions.
+3. The system shall allow users to create new resumes.
+4. The system shall allow users to save, edit, and delete resumes.
+5. The system shall allow users to select a resume context type.
+6. The system shall collect user information including personal details, education, work experience, skills, and achievements.
+7. The system shall process user inputs through a contextual processing engine.
+8. The system shall interface with a Large Language Model through an API for resume generation.
+9. The system shall generate context-appropriate resume content.
+10. The system shall display generated resumes in a formatted preview.
+11. The system shall allow users to export resumes in PDF format.
+12. The system shall store generated resumes for later access.
+13. The system shall allow administrators to view all registered users.
+14. The system shall allow administrators to manage user accounts.
+15. The system shall store all data in a relational database.
+16. The system shall validate all user input.
+17. The system shall restrict access to authorized users only.
 
 3.3.2 Non-Functional Requirements
-1.	The system shall process authentication requests within three seconds for most login attempts.
-2.	The system shall generate resume content within five seconds for most requests.
-3.	The system shall securely hash user passwords before storage.
-4.	The system shall automatically log out inactive users after fifteen minutes.
-5.	The system shall encrypt data transmitted between client and server.
-6.	The system shall provide a responsive interface for desktop and mobile devices.
-7.	The system shall support concurrent users without performance degradation.
-8.	The system shall efficiently store and retrieve large volumes of resume data.
-9.	The system shall allow API integration without service interruption.
-10.	The system shall be modular to allow easy addition of new context types.
+
+1. The system shall process authentication requests within three seconds for most login attempts.
+2. The system shall generate resume content within five seconds for most requests.
+3. The system shall securely hash user passwords before storage.
+4. The system shall automatically log out inactive users after fifteen minutes.
+5. The system shall encrypt data transmitted between client and server.
+6. The system shall provide a responsive interface for desktop and mobile devices.
+7. The system shall support concurrent users without performance degradation.
+8. The system shall efficiently store and retrieve large volumes of resume data.
+9. The system shall allow API integration without service interruption.
+10. The system shall be modular to allow easy addition of new context types.
+
+Users of the system can:
+
+1. Register and log in securely.
+2. Create, save, and manage multiple resumes.
+3. Select a resume context such as academic, developer, or marketing to guide content tone and structure.
+4. Provide essential information including personal details, education, work experience, skills, and achievements.
+5. Generate resume content automatically through a Large Language Model based on processed contextual inputs.
+6. Preview, edit, and export resumes in PDF format.
+   Administrators can:
+7. View and manage user accounts.
+8. Monitor system activity.
+9. Manage predefined context configurations and system settings.

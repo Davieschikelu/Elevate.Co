@@ -61,6 +61,13 @@
                         class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">{{ old('experience') }}</textarea>
                 </div>
 
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Skills</label>
+                    <textarea name="skills" required rows="3"
+                        placeholder="e.g. JavaScript, Python, Communication, Problem Solving (separate with commas)"
+                        class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">{{ old('skills') }}</textarea>
+                </div>
+
                 <button type="submit"
                     class="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold text-lg hover:bg-indigo-700 transition shadow-lg shadow-indigo-100">
                     Next: Choose Context

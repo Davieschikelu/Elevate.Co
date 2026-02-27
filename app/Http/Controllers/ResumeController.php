@@ -27,6 +27,7 @@ class ResumeController extends Controller
             'phone' => 'nullable|string|max:20',
             'education' => 'required|string',
             'experience' => 'required|string',
+            'skills' => 'required|string',
         ]);
 
         session(['resume_info' => $validated]);
@@ -62,7 +63,7 @@ class ResumeController extends Controller
             'summary' => "Professional resume generated for {$context} context.",
             'education' => $info['education'],
             'experience' => $info['experience'],
-            'skills' => ['Communication', 'Teamwork', 'Problem Solving'], // Placeholder
+            'skills' => array_values(array_filter(array_map('trim', explode(',', $info['skills'] ?? '')))),
         ];
 
         $resume = Resume::create([

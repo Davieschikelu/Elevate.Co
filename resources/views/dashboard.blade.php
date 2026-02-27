@@ -103,13 +103,21 @@
                         </div>
                         <h4 class="font-bold text-slate-800 mb-2">{{ $resume->title }}</h4>
                         <p class="text-slate-500 text-sm line-clamp-2 mb-4">
-                            {{ $resume->content['summary'] ?? 'No summary available.' }}</p>
+                            {{ $resume->content['summary'] ?? 'No summary available.' }}
+                        </p>
 
-                        <div class="flex gap-3">
+                        <div class="flex gap-2">
                             <a href="{{ route('resume.edit', $resume->id) }}"
                                 class="flex-1 text-center py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-semibold hover:bg-slate-200 transition">Edit</a>
                             <a href="{{ route('resume.export', $resume->id) }}"
                                 class="flex-1 text-center py-2 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 transition">PDF</a>
+                            <form action="{{ route('resume.destroy', $resume->id) }}" method="POST" class="flex-1"
+                                onsubmit="return confirm('Are you sure you want to delete this resume?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="w-full text-center py-2 bg-red-100 text-red-600 rounded-lg text-sm font-semibold hover:bg-red-200 transition">Delete</button>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -58,6 +58,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/generate', [ResumeController::class, 'generate'])->name('generate');
         Route::get('/{resume}/edit', [ResumeController::class, 'edit'])->name('edit');
         Route::put('/{resume}', [ResumeController::class, 'update'])->name('update');
+        Route::delete('/{resume}', [ResumeController::class, 'destroy'])->name('destroy');
         Route::get('/{resume}/export', [ResumeController::class, 'export'])->name('export');
     });
 

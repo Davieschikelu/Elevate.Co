@@ -110,4 +110,15 @@ class ResumeController extends Controller
         // Placeholder for PDF export logic
         return "PDF Export functionality for Resume #{$resume->id} is not yet implemented. This would typically use a library like DomPDF.";
     }
+
+    public function destroy(Resume $resume)
+    {
+        if ($resume->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $resume->delete();
+
+        return back()->with('success', 'Resume deleted successfully!');
+    }
 }

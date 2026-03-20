@@ -10,12 +10,12 @@
 </head>
 
 <body class="bg-slate-50 font-[Inter]">
-    <div class="flex min-h-screen">
+    <div class="flex flex-col md:flex-row min-h-screen">
         <!-- Sidebar -->
-        <aside class="w-64 bg-slate-900 text-white p-8">
+        <aside class="w-full md:w-64 bg-slate-900 text-white p-6 md:p-8 shrink-0">
             <div class="text-2xl font-bold tracking-tight text-white mb-12">ELEVATE. <span
                     class="text-xs bg-indigo-600 px-2 py-1 rounded">ADMIN</span></div>
-            <nav class="space-y-4">
+            <nav class="grid grid-cols-2 gap-2 md:flex md:flex-col md:gap-0 md:space-y-4">
                 <a href="{{ route('admin.dashboard') }}"
                     class="block px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">Dashboard</a>
                 <a href="{{ route('admin.users') }}"
@@ -32,7 +32,7 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-12">
+        <main class="flex-1 p-4 sm:p-6 md:p-12 overflow-hidden">
             <h1 class="text-3xl font-bold text-slate-800 mb-8">User Management</h1>
 
             @if(session('success'))
@@ -46,8 +46,8 @@
                 </div>
             @endif
 
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <table class="w-full text-left">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-x-auto">
+                <table class="w-full text-left whitespace-nowrap min-w-max">
                     <thead class="bg-slate-50 border-b border-slate-200">
                         <tr>
                             <th class="px-6 py-4 text-sm font-bold text-slate-600">User</th>

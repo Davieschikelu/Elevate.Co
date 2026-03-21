@@ -13,6 +13,7 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        [x-cloak] { display: none !important; }
     </style>
 </head>
 
@@ -53,16 +54,45 @@
             </div>
         </div>
     </div>
-    <nav class="bg-white border-b border-slate-200 px-8 py-4 flex justify-between items-center">
+    <nav class="bg-white border-b border-slate-200 px-4 sm:px-8 py-4 flex justify-between items-center relative z-40" x-data="{ mobileMenuOpen: false }">
         <div class="text-2xl font-bold tracking-tight text-indigo-600">ELEVATE.</div>
-        <div class="flex items-center gap-4">
-            <span class="text-slate-600 font-medium">Welcome, {{ Auth::user()->name }}</span>
+        
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-4">
+            <span class="text-slate-600 font-medium truncate max-w-[200px]">Welcome, {{ Auth::user()->name }}</span>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit"
                     class="text-sm text-red-600 font-semibold hover:bg-red-50 px-4 py-2 rounded-lg transition">Log
                     Out</button>
             </form>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden flex items-center">
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-slate-600 hover:text-indigo-600 focus:outline-none p-2">
+                <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+                <svg x-show="mobileMenuOpen" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition x-cloak
+            class="md:hidden absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-xl z-50">
+            <div class="px-6 py-4 flex flex-col space-y-4">
+                <span class="text-slate-600 font-medium">Welcome, {{ Auth::user()->name }}</span>
+                <hr class="border-slate-100">
+                <form method="POST" action="{{ route('logout') }}" class="w-full">
+                    @csrf
+                    <button type="submit"
+                        class="w-full text-left font-semibold text-red-600 hover:bg-red-50 px-3 py-2 rounded-lg transition">Log
+                        Out</button>
+                </form>
+            </div>
         </div>
     </nav>
 

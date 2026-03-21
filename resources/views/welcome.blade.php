@@ -17,17 +17,17 @@
 
 <body class="bg-slate-50 text-slate-900 antialiased">
 
-    <nav class="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
+    <nav class="relative z-50 flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
         <div class="flex items-center gap-2">
             <img src="{{ asset('images/logo.jpg') }}" alt="Elevate Logo" class="h-8 w-8 rounded-full object-cover">
             <div class="text-2xl font-bold tracking-tight text-indigo-600">ELEVATE.</div>
         </div>
-        <div class="hidden md:flex space-x-8 font-medium text-slate-600">
+        <div class="hidden lg:flex space-x-8 font-medium text-slate-600">
             <a href="#" class="hover:text-indigo-600 transition">Templates</a>
             <a href="#" class="hover:text-indigo-600 transition">Examples</a>
             <a href="#" class="hover:text-indigo-600 transition">Pricing</a>
         </div>
-        <div>
+        <div class="hidden lg:flex flex-row items-center gap-2">
             @if (Route::has('login'))
                 @auth
                     <a href="{{ url('/dashboard') }}" class="px-5 py-2 text-slate-600 font-medium">Dashboard</a>
@@ -35,13 +35,42 @@
                     <a href="{{ route('login') }}" class="px-5 py-2 text-slate-600 font-medium">Log in</a>
                     @if (Route::has('register'))
                         <a href="{{ route('register') }}"
-                            class="ml-4 px-6 py-2.5 bg-indigo-600 text-white rounded-full font-semibold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition">Build
-                            My Resume</a>
+                            class="ml-4 px-6 py-2.5 bg-indigo-600 text-white rounded-full font-semibold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition">Build My Resume</a>
                     @endif
                 @endauth
             @endif
         </div>
+        <!-- Mobile Menu Button -->
+        <div class="lg:hidden flex items-center">
+            <button id="mobile-menu-button" class="text-slate-600 hover:text-indigo-600 focus:outline-none p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-white shadow-xl absolute w-full z-40 left-0 border-b border-slate-100 pb-4">
+        <div class="px-8 py-4 flex flex-col space-y-4">
+            <a href="#" class="text-slate-600 hover:text-indigo-600 font-medium transition">Templates</a>
+            <a href="#" class="text-slate-600 hover:text-indigo-600 font-medium transition">Examples</a>
+            <a href="#" class="text-slate-600 hover:text-indigo-600 font-medium transition">Pricing</a>
+            <hr class="border-slate-100">
+            @if (Route::has('login'))
+                @auth
+                    <a href="{{ url('/dashboard') }}" class="text-slate-600 font-medium">Dashboard</a>
+                @else
+                    <a href="{{ route('login') }}" class="text-slate-600 font-medium">Log in</a>
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}"
+                            class="inline-block text-center mt-2 px-6 py-2.5 bg-indigo-600 text-white rounded-full font-semibold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition">Build My Resume</a>
+                    @endif
+                @endauth
+            @endif
+        </div>
+    </div>
 
     <header class="relative pt-16 pb-24 overflow-hidden">
         <div class="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -156,6 +185,18 @@
             &copy; {{ date('Y') }} Elevate Resume Builder. All rights reserved.
         </div>
     </footer>
+
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
+            
+            menu.classList.toggle('hidden');
+            menuIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        });
+    </script>
 </body>
 
 </html>

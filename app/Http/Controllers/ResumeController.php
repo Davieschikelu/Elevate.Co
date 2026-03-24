@@ -25,9 +25,35 @@ class ResumeController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email',
             'phone' => 'nullable|string|max:20',
-            'education' => 'required|string',
-            'experience' => 'required|string',
+            'address' => 'required|string|max:255',
+            'city_town' => 'required|string|max:100',
+            'country' => 'required|string|max:100',
+            'linkedin' => 'nullable|url|max:255',
+            'portfolio' => 'nullable|url|max:255',
+            'education' => 'required|array|min:1',
+            'education.*.institution' => 'required|string|max:255',
+            'education.*.address' => 'required|string|max:255',
+            'education.*.qualification' => 'required|string|max:255',
+            'education.*.field' => 'required|string|max:255',
+            'education.*.honours' => 'nullable|string|max:255',
+            'education.*.start_date' => 'required|string|max:20',
+            'education.*.end_date' => 'nullable|string|max:20',
+            'education.*.current' => 'nullable|boolean',
+            'experience' => 'required|array|min:1',
+            'experience.*.title' => 'required|string|max:255',
+            'experience.*.employer' => 'required|string|max:255',
+            'experience.*.city' => 'required|string|max:255',
+            'experience.*.country' => 'required|string|max:255',
+            'experience.*.type' => 'required|string|max:50',
+            'experience.*.start_date' => 'required|string|max:20',
+            'experience.*.end_date' => 'nullable|string|max:20',
+            'experience.*.current' => 'nullable|boolean',
             'skills' => 'required|string',
+            'awards' => 'nullable|string',
+            'hobbies' => 'nullable|string',
+            'certificates' => 'nullable|string',
+            'languages' => 'nullable|string',
+            'references' => 'nullable|string',
         ]);
 
         session(['resume_info' => $validated]);
@@ -59,11 +85,21 @@ class ResumeController extends Controller
                 'name' => $info['name'],
                 'email' => $info['email'],
                 'phone' => $info['phone'],
+                'address' => $info['address'],
+                'city_town' => $info['city_town'],
+                'country' => $info['country'],
+                'linkedin' => $info['linkedin'] ?? null,
+                'portfolio' => $info['portfolio'] ?? null,
             ],
             'summary' => "Professional resume generated for {$context} context.",
             'education' => $info['education'],
             'experience' => $info['experience'],
             'skills' => array_values(array_filter(array_map('trim', explode(',', $info['skills'] ?? '')))),
+            'awards' => $info['awards'] ?? null,
+            'hobbies' => $info['hobbies'] ?? null,
+            'certificates' => $info['certificates'] ?? null,
+            'languages' => $info['languages'] ?? null,
+            'references' => $info['references'] ?? null,
         ];
 
         $resume = Resume::create([
@@ -97,7 +133,14 @@ class ResumeController extends Controller
             'content' => 'required|array',
         ]);
 
-        $resume->update(['content' => $request->content]);
+        $content = $request->content;
+        
+        // Ensure skills are saved as an array
+        if (isset($content['skills']) && is_string($content['skills'])) {
+            $content['skills'] = array_values(array_filter(array_map('trim', explode(',', $content['skills']))));
+        }
+
+        $resume->update(['content' => $content]);
 
         return back()->with('success', 'Resume updated successfully!');
     }

@@ -162,16 +162,19 @@
                     </div>
                 </div>
 
-                <div x-data="{ experiences: {{ json_encode(isset($resume->content['experience']) && is_array($resume->content['experience']) ? $resume->content['experience'] : [ ['title'=>'', 'employer'=>'', 'city'=>'', 'country'=>'', 'type'=>'Remote', 'start_date'=>'', 'end_date'=>'', 'current'=>false] ]) }} }">
-                    <div class="flex justify-between items-center mb-2">
-                        <label class="block text-sm font-semibold text-slate-700">Work Experience</label>
+                <div x-data="{ experiences: {{ json_encode(isset($resume->content['experience']) && is_array($resume->content['experience']) ? $resume->content['experience'] : []) }} }">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="flex items-center gap-4">
+                            <label class="block text-sm font-semibold text-slate-700">Work Experience</label>
+                            <span x-show="experiences.length === 0" class="text-xs text-slate-500 italic">(No experience added)</span>
+                        </div>
                         <button type="button" @click="experiences.push({ title: '', employer: '', city: '', country: '', type: 'Remote', start_date: '', end_date: '', current: false })" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">+ Add Job</button>
                     </div>
                     
                     <div class="space-y-6">
                         <template x-for="(exp, index) in experiences" :key="index">
                             <div class="p-6 bg-slate-50 border border-slate-200 rounded-xl relative">
-                                <button type="button" @click="experiences.splice(index, 1)" x-show="experiences.length > 1" class="absolute top-4 right-4 text-slate-400 hover:text-red-600 transition">
+                                <button type="button" @click="experiences.splice(index, 1)" class="absolute top-4 right-4 text-slate-400 hover:text-red-600 transition" title="Remove Job">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                 </button>
                                 

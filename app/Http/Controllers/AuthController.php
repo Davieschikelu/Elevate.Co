@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\ActivityLog;
 
 class AuthController extends Controller
 {
@@ -36,6 +37,7 @@ class AuthController extends Controller
         event(new \Illuminate\Auth\Events\Registered($user));
 
         Auth::login($user);
+        ActivityLog::record("Registered a new account.");
 
         return redirect()->intended('dashboard')
             ->with('success', 'Account created successfully! Please verify your email.');
@@ -50,6 +52,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $request->remember)) {
             $request->session()->regenerate();
+            ActivityLog::record("Logged in.");
 
             return redirect()->intended('dashboard')
                 ->with('success', 'Welcome back!');
@@ -104,6 +107,7 @@ class AuthController extends Controller
             }
 
             Auth::login($user);
+            ActivityLog::record("Logged in via Google.");
 
             return redirect()->intended('dashboard')
                 ->with('success', 'Successfully logged in with Google!');

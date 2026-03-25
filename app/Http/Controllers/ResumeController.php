@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resume;
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -109,6 +110,8 @@ class ResumeController extends Controller
             'content' => $generatedContent,
         ]);
 
+        ActivityLog::record("Generated a new {$context} resume.");
+
         session()->forget('resume_info');
 
         return redirect()->route('resume.edit', $resume->id)->with('success', 'Resume generated successfully!');
@@ -141,6 +144,7 @@ class ResumeController extends Controller
         }
 
         $resume->update(['content' => $content]);
+        ActivityLog::record("Updated resume '{$resume->title}'.");
 
         return back()->with('success', 'Resume updated successfully!');
     }
@@ -161,7 +165,9 @@ class ResumeController extends Controller
             abort(403);
         }
 
+        $resumeTitle = $resume->title;
         $resume->delete();
+        ActivityLog::record("Deleted resume '{$resumeTitle}'.");
 
         return back()->with('success', 'Resume deleted successfully!');
     }

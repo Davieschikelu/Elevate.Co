@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Resume;
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -26,12 +27,13 @@ class AdminController extends Controller
 
     public function logs()
     {
-        // Activity logs monitoring (mocked for now)
-        $logs = [
-            ['time' => now()->subMinutes(5), 'user' => 'System', 'activity' => 'Database backup completed.'],
-            ['time' => now()->subMinutes(15), 'user' => 'Admin', 'activity' => 'Updated Developer template.'],
-            ['time' => now()->subMinutes(30), 'user' => 'John Doe', 'activity' => 'Generated a new resume.'],
-        ];
+        $logs = ActivityLog::with('user')->latest()->get()->map(function ($log) {
+            return [
+                'time' => $log->created_at,
+                'user' => $log->user ? $log->user->name : 'System',
+                'activity' => $log->activity,
+            ];
+        });
         return view('admin.logs', compact('logs'));
     }
 
@@ -46,7 +48,10 @@ class AdminController extends Controller
             return back()->with('error', 'You cannot delete yourself.');
         }
 
+        $userName = $user->name;
         $user->delete();
+        ActivityLog::record("Deleted user account for {$userName}.");
+
         return back()->with('success', 'User account deleted successfully.');
     }
 }

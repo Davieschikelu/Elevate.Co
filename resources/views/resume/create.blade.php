@@ -176,8 +176,13 @@
                      x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
                     <h2 class="text-xl font-bold text-slate-800 mb-6 pb-2 border-b border-slate-100">3. Work Experience</h2>
                     
-                    <div x-data="{ experiences: [ { title: '', employer: '', city: '', country: '', type: 'Remote', start_date: '', end_date: '', current: false } ] }">
-                        <div class="space-y-6">
+                    <div x-data="{ noExperience: false, experiences: [ { title: '', employer: '', city: '', country: '', type: 'Remote', start_date: '', end_date: '', current: false } ] }">
+                        <div class="mb-6 flex items-center gap-3 bg-indigo-50/50 p-4 rounded-xl border border-indigo-100">
+                            <input type="checkbox" id="no_experience" name="no_experience" value="1" x-model="noExperience" class="w-5 h-5 rounded text-indigo-600 focus:ring-indigo-500 border-indigo-300">
+                            <label for="no_experience" class="text-sm font-bold text-indigo-900 cursor-pointer select-none">I do not have any work experience</label>
+                        </div>
+
+                        <div x-show="!noExperience" class="space-y-6">
                             <template x-for="(exp, index) in experiences" :key="index">
                                 <div class="p-6 bg-slate-50 border border-slate-200 rounded-xl relative shadow-sm">
                                     <button type="button" @click="experiences.splice(index, 1)" x-show="experiences.length > 1" class="absolute top-4 right-4 text-slate-400 hover:text-red-500 transition" title="Remove Job">
@@ -189,25 +194,25 @@
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                                         <div>
                                             <label class="block text-xs font-semibold text-slate-600 mb-1">Job Title</label>
-                                            <input type="text" x-model="exp.title" :name="`experience[${index}][title]`" :required="step === 3" class="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+                                            <input type="text" x-model="exp.title" :name="`experience[${index}][title]`" :required="step === 3 && !noExperience" :disabled="noExperience" class="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
                                         </div>
                                         <div>
                                             <label class="block text-xs font-semibold text-slate-600 mb-1">Employer</label>
-                                            <input type="text" x-model="exp.employer" :name="`experience[${index}][employer]`" :required="step === 3" class="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+                                            <input type="text" x-model="exp.employer" :name="`experience[${index}][employer]`" :required="step === 3 && !noExperience" :disabled="noExperience" class="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
                                         </div>
                                         <div>
                                             <label class="block text-xs font-semibold text-slate-600 mb-1">City/Town</label>
-                                            <input type="text" x-model="exp.city" :name="`experience[${index}][city]`" :required="step === 3" class="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+                                            <input type="text" x-model="exp.city" :name="`experience[${index}][city]`" :required="step === 3 && !noExperience" :disabled="noExperience" class="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
                                         </div>
                                         <div>
                                             <label class="block text-xs font-semibold text-slate-600 mb-1">Country</label>
-                                            <input type="text" x-model="exp.country" :name="`experience[${index}][country]`" :required="step === 3" class="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+                                            <input type="text" x-model="exp.country" :name="`experience[${index}][country]`" :required="step === 3 && !noExperience" :disabled="noExperience" class="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
                                         </div>
                                     </div>
                                     
                                     <div class="mb-4">
                                         <label class="block text-xs font-semibold text-slate-600 mb-1">Job Type</label>
-                                        <select x-model="exp.type" :name="`experience[${index}][type]`" :required="step === 3" class="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+                                        <select x-model="exp.type" :name="`experience[${index}][type]`" :required="step === 3 && !noExperience" :disabled="noExperience" class="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
                                             <option value="Remote">Remote</option>
                                             <option value="On-site">On-site</option>
                                             <option value="Hybrid">Hybrid</option>
@@ -217,24 +222,24 @@
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <label class="block text-xs font-semibold text-slate-600 mb-1">Start Date</label>
-                                            <input type="month" x-model="exp.start_date" :name="`experience[${index}][start_date]`" :required="step === 3" class="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+                                            <input type="month" x-model="exp.start_date" :name="`experience[${index}][start_date]`" :required="step === 3 && !noExperience" :disabled="noExperience" class="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
                                         </div>
                                         <div>
                                             <label class="block text-xs font-semibold text-slate-600 mb-1 flex justify-between items-center">
                                                 <span>End Date</span>
                                                 <div class="flex items-center gap-1">
-                                                    <input type="checkbox" x-model="exp.current" :name="`experience[${index}][current]`" value="1" class="rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                                                    <input type="checkbox" x-model="exp.current" :name="`experience[${index}][current]`" value="1" :disabled="noExperience" class="rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
                                                     <span class="text-[10px] text-slate-500">Currently working here</span>
                                                 </div>
                                             </label>
-                                            <input type="month" x-model="exp.end_date" :name="`experience[${index}][end_date]`" :disabled="exp.current" :required="step === 3 && !exp.current" class="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-slate-100 disabled:text-slate-400 bg-white">
+                                            <input type="month" x-model="exp.end_date" :name="`experience[${index}][end_date]`" :disabled="exp.current || noExperience" :required="step === 3 && !noExperience && !exp.current" class="w-full px-3 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-slate-100 disabled:text-slate-400 bg-white">
                                         </div>
                                     </div>
                                 </div>
                             </template>
                         </div>
 
-                        <div class="mt-4 flex justify-center">
+                        <div x-show="!noExperience" class="mt-4 flex justify-center">
                             <button type="button" @click="experiences.push({ title: '', employer: '', city: '', country: '', type: 'Remote', start_date: '', end_date: '', current: false })" 
                                     class="px-4 py-2 border-2 border-dashed border-indigo-200 text-indigo-600 font-semibold rounded-xl hover:bg-indigo-50 hover:border-indigo-300 transition w-full">
                                 + Add Another Job

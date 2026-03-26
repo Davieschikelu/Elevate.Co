@@ -12,7 +12,7 @@
 <body class="bg-slate-50 font-[Inter]">
     <div class="flex flex-col md:flex-row min-h-screen">
         <!-- Sidebar -->
-        <aside class="w-full md:w-64 bg-slate-900 text-white p-6 md:p-8 shrink-0">
+        <aside class="w-full md:w-64 bg-slate-900 text-white p-6 md:p-8 shrink-0 md:sticky md:top-0 md:h-screen flex flex-col">
             <div class="text-2xl font-bold tracking-tight text-white mb-12">ELEVATE. <span
                     class="text-xs bg-indigo-600 px-2 py-1 rounded">ADMIN</span></div>
             <nav class="grid grid-cols-2 gap-2 md:flex md:flex-col md:gap-0 md:space-y-4">

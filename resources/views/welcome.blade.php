@@ -171,18 +171,70 @@
         </div>
     </section>
 
-    <footer class="bg-slate-900 py-12 text-slate-400 px-8">
-        <div
-            class="max-w-7xl mx-auto flex flex-col md:row justify-between items-center border-b border-slate-800 pb-8 mb-8">
-            <div class="text-white font-bold text-xl mb-4 md:mb-0">ELEVATE.</div>
-            <div class="flex space-x-6">
-                <a href="#" class="hover:text-white transition">Privacy Policy</a>
-                <a href="#" class="hover:text-white transition">Terms of Service</a>
-                <a href="#" class="hover:text-white transition">Contact</a>
+    <footer class="bg-slate-900 pt-16 pb-8 text-slate-400 px-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            <div class="col-span-1 lg:col-span-1">
+                <div class="flex items-center gap-2 mb-6">
+                    <img src="{{ asset('images/logo.jpg') }}" alt="Elevate Logo" class="h-8 w-8 rounded-full object-cover">
+                    <div class="text-2xl font-bold tracking-tight text-white">ELEVATE.</div>
+                </div>
+                <p class="text-sm leading-relaxed mb-6">
+                    Empowering professionals to land their dream jobs with AI-driven, ATS-friendly resume solutions. Build your future with confidence.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center hover:bg-indigo-600 transition">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                    </a>
+                    <a href="#" class="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center hover:bg-indigo-600 transition">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-widest">Product</h4>
+                <ul class="space-y-4 text-sm">
+                    <li><a href="#" class="hover:text-indigo-400 transition">Resume Builder</a></li>
+                    <li><a href="#" class="hover:text-indigo-400 transition">Templates</a></li>
+                    <li><a href="#" class="hover:text-indigo-400 transition">Examples</a></li>
+                    <li><a href="#" class="hover:text-indigo-400 transition">Pricing</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-widest">Support</h4>
+                <ul class="space-y-4 text-sm">
+                    <li><a href="#" class="hover:text-indigo-400 transition">Help Center</a></li>
+                    <li><a href="#" class="hover:text-indigo-400 transition">Contact Us</a></li>
+                    <li><a href="#" class="hover:text-indigo-400 transition">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-indigo-400 transition">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase text-xs tracking-widest">Contact</h4>
+                <ul class="space-y-4 text-sm">
+                    <li class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        hello@elevate.co
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        Lagos, Nigeria
+                    </li>
+                </ul>
             </div>
         </div>
-        <div class="text-center text-sm">
-            &copy; {{ date('Y') }} Elevate Resume Builder. All rights reserved.
+
+        <div class="max-w-7xl mx-auto pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+            <div class="text-slate-500">
+                &copy; {{ date('Y') }} Elevate Resume Builder. All rights reserved. Built with passion for your career.
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-white transition">Status</a>
+                <a href="#" class="hover:text-white transition">Security</a>
+                <a href="#" class="hover:text-white transition">Cookies</a>
+            </div>
         </div>
     </footer>
 
